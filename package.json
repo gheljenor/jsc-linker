@@ -1,15 +1,23 @@
 {
   "name": "jsc-linker",
   "description": "Bundles JavaScript files & Templates using C++/Java-like directives",
-  "version": "1.0.2-alpha",
+  "version": "1.0.3-alpha",
   "main": "./run/grunt/linker.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "grunt upgrade:linker"
   },
+  "homepage": "https://github.com/gheljenor/jsc-linker",
   "author": {
       "name": "gheljenor",
       "email": "gheljenor@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gheljenor/jsc-linker.git"
+  },
+  "bugs": {
+      "url": "https://github.com/gheljenor/jsc-linker/issues"
   },
   "keywords": [
       "javascript",
