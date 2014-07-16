@@ -1,0 +1,1 @@
+var nodePath = require("path");

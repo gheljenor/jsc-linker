@@ -1,0 +1,45 @@
+{
+  "name": "jsc-linker",
+  "description": "Bundles JavaScript files & Templates using C++/Java-like directives",
+  "version": "1.0.2-alpha",
+  "main": "./run/grunt/linker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "grunt upgrade:linker"
+  },
+  "author": {
+      "name": "gheljenor",
+      "email": "gheljenor@gmail.com"
+  },
+  "keywords": [
+      "javascript",
+      "templates",
+      "js-compile",
+      "browserify",
+      "build",
+      "make",
+      "package",
+      "preprocessor",
+      "util",
+      "gruntplugin"
+  ],
+  "files": [
+      "src",
+      "run",
+      "tasks",
+      "Gruntfile.js"
+  ],
+  "license": "ISC",
+  "readmeFilename": "readme.md",
+  "dependencies": {
+    "colors": "^0.6.2",
+    "underscore": "^1.6.0",
+    "handlebars": "~2.0.0-alpha.2"
+  },
+  "devDependencies": {
+      "grunt": "~0.4.4",
+      "grunt-contrib-uglify": "~0.4.0",
+      "grunt-contrib-watch": "~0.6.1",
+      "grunt-contrib-copy": "^0.5.0"
+  }
+}
