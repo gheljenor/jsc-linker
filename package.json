@@ -1,7 +1,7 @@
 {
   "name": "jsc-linker",
   "description": "Bundles JavaScript files & Templates using C++/Java-like directives",
-  "version": "1.0.4-alpha",
+  "version": "1.0.5-alpha",
   "main": "./run/grunt/linker.js",
   "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",

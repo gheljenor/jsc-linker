@@ -3,36 +3,40 @@
 
 //#export validateModule
 function validateModule(module, root){
-    var files = module.submodule.files;
     var success = true;
     var fileList = {};
     var file, fileName, dir, dirName, k, l, fLink, fOut, tmp;
 
-    for (fileName in files) {
-        file = _.pick(files[fileName], depNames);
-        tmp = {
-            links: {},
-            vars: []
-        };
+    function listFiles(files) {
+        for (fileName in files) {
+            file = _.pick(files[fileName], depNames);
+            tmp = {
+                links: {},
+                vars: []
+            };
 
-        for (dirName in file) {
-            dir = file[dirName];
+            for (dirName in file) {
+                dir = file[dirName];
 
-            for (k = 0, l = dir.length; k < l; k++){
-                fLink = _.isString(dir[k]) && dir[k] || dir[k].file;
-                fOut = !_.isString(dir[k]) && dir[k].outer;
+                for (k = 0, l = dir.length; k < l; k++) {
+                    fLink = _.isString(dir[k]) && dir[k] || dir[k].file;
+                    fOut = !_.isString(dir[k]) && dir[k].outer;
 
-                if (fLink) {
-                    if (!tmp.links[fLink]) tmp.links[fLink] = [];
-                    if (fOut) tmp.links[fLink].push(fOut);
-                }else{
-                    if (fOut) tmp.vars.push(fOut);
+                    if (fLink) {
+                        if (!tmp.links[fLink]) tmp.links[fLink] = [];
+                        if (fOut) tmp.links[fLink].push(fOut);
+                    } else {
+                        if (fOut) tmp.vars.push(fOut);
+                    }
                 }
             }
-        }
 
-        fileList[fileName] = tmp;
+            fileList[fileName] = tmp;
+        }
     }
+
+    if (module.submodule)   listFiles(module.submodule.files);
+    if (module.template)    listFiles(module.template.files);
 
     var stack = [];
     function walkThu(fileName){
