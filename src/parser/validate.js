@@ -12,7 +12,8 @@ function validateModule(module, root){
             file = _.pick(files[fileName], depNames);
             tmp = {
                 links: {},
-                vars: []
+                vars: [],
+                used: {}
             };
 
             for (dirName in file) {
@@ -25,8 +26,12 @@ function validateModule(module, root){
                     if (fLink) {
                         if (!tmp.links[fLink]) tmp.links[fLink] = [];
                         if (fOut) tmp.links[fLink].push(fOut);
+                        if (~fullDeps.indexOf(dirName)) tmp.links[fLink].full = true;
                     } else {
-                        if (fOut) tmp.vars.push(fOut);
+                        if (fOut) {
+                            tmp.vars.push(fOut);
+                            tmp.used[fOut] = false;
+                        }
                     }
                 }
             }
@@ -61,7 +66,7 @@ function validateModule(module, root){
                 success = false; return false;
             }
 
-            for (k = 0, l = file.links[fLink].length; k < l; k++)
+            for (k = 0, l = file.links[fLink].length; k < l; k++){
                 if (!~fileList[fLink].vars.indexOf( file.links[fLink][k] )) {
                     log( "Variable ".bold.red + file.links[fLink][k].yellow +
                         " required in file ".bold.red + fileName.yellow +
@@ -71,6 +76,11 @@ function validateModule(module, root){
                     success = false; return false;
                 }
 
+                fileList[fLink].used[ file.links[fLink][k] ] = true;
+            }
+
+            if (file.links[fLink].full) for (k in fileList[fLink].used) fileList[fLink].used[k] = true;
+
             if (!walkThu(fLink)) return false;
         }
 
@@ -78,7 +88,29 @@ function validateModule(module, root){
         return true;
     }
 
-    walkThu(root);
+    if (!walkThu(root)) return false;
+
+    for (fileName in fileList) {
+        file = fileList[fileName];
+
+        for (fOut in file.used) if (!file.used[fOut]) {
+            log("Variable ".bold.blue + fOut.white +
+                " exported from ".bold.blue + fileName.white +
+                " is not used".bold.blue );
+
+            tmp = _.pick( module.submodule.files[fileName], outDeps );
+
+            _.every(tmp, function(d){
+                for (var k = 0, l = d.length; k < l; k++) {
+                    if (d[k].outer && d[k].outer == fOut) {
+                        d.splice(k, 1);
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
+    }
 
     if (success) log("Validation success.".bold.cyan);
     return success;

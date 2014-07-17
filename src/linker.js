@@ -11,7 +11,7 @@
 //#import {root}/parser/validate#validateModule
 //#import {root}/parser/i18n#i18nReader
 
-//#export build
+//#external build
 function build(path, logger, _verbose){
 
     var configPath = nodePath.resolve(path);
@@ -38,7 +38,7 @@ function build(path, logger, _verbose){
     }
 }
 
-//#export linker
+//#external linker
 function linker(config, logger, _verbose){
     if (!logger) logger = console.log.bind(console);
     _log = logger;

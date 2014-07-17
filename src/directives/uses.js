@@ -15,3 +15,4 @@ directives.uses = {
 };
 
 depNames.push("uses");
+fullDeps.push("uses");

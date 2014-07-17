@@ -7,3 +7,4 @@ directives.export = { line: function(attr){
 } };
 
 depNames.push("export");
+outDeps.push("export");

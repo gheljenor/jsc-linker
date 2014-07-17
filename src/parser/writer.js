@@ -113,7 +113,7 @@ function wrapSubmodule (submodule, module){
     // запоминаем что нужно экспортить вовне
     if (submodule.external) wrapped += submodule.external.map(function(a){
         return "__export."+ a.outer +"=" + " __m["+submodule.order+"]." + a.outer + ";\n";
-    });
+    }).join("");
 
     if (submodule.internal || submodule.external) {
         // импортим внутрь модуля
