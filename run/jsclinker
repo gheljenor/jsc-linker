@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+var build = require("./module.js").build;
+
+var filepath = process.argv[2];
+build(filepath);

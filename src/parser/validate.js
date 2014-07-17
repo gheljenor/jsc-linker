@@ -1,8 +1,8 @@
 //#include {headers}/underscore
 //#load {root}/directives/directives
 
-//#export parseModule
-function parseModule(module, root){
+//#export validateModule
+function validateModule(module, root){
     var files = module.submodule.files;
     var success = true;
     var fileList = {};
@@ -67,13 +67,15 @@ function parseModule(module, root){
                     success = false; return false;
                 }
 
-            walkThu(fLink);
+            if (!walkThu(fLink)) return false;
         }
 
         stack.pop();
+        return true;
     }
 
     walkThu(root);
 
+    if (success) log("Validation success.".bold.cyan);
     return success;
 }

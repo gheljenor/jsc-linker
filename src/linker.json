@@ -2,5 +2,6 @@
     "paths": {
         "headers": "{root}/headers"
     },
-    "build": "{root}/linker"
+    "build": "{root}/linker",
+    "templateExt": "hbs"
 }

@@ -6,8 +6,10 @@
 function writeModule(module){
     //store config
     writer(module.entry + ".module.json", JSON.stringify(module, true, 2));
+
     if (module.library) storeLib(module);
     if (module.i18n) storeI18N(module);
+
     storeModule(module);
 }
 

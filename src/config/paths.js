@@ -18,7 +18,8 @@ function normalizePaths(paths){
         for(k in paths) {
             paths[k] = paths[k].replace(/\{(.*)\}/g, function(a,b){ f = true; return paths[b] || b });
         }
-    }while(f);
+    } while(f);
+
     for(k in paths) {
         paths[k] = nodePath.normalize(paths[k]);
     }

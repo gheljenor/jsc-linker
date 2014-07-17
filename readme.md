@@ -9,7 +9,15 @@ Usage
 ### Standalone
 You can use this tool from console running
     
-    node ./run/module.cli.js <path/to/project/config.json>
+    > node <path/to/jsc-linker>/run/jsclinker <path/to/project/config.json>
+    
+or
+
+    > node_modules/.bin/jsclinker <path/to/project/config.json>
+    
+or install it globally (npm install -g jsc-linker), and use
+
+    > jsclinker <path/to/project/config.json>
     
 ### As grunt plugin
 Or you can use it as grunt plugin
