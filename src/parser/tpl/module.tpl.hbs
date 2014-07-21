@@ -1,0 +1,52 @@
+{{!#load {root}/parser/tpl/helpers}}
+{{!#template {root}/parser/tpl/submodule.tpl}}
+{{!#template {root}/parser/tpl/template.tpl}}
+
+(function(__g){
+    var __m = [], __i = [];
+
+    var _runLogger = function(){
+        _runLogger.push.apply(this, arguments);
+        _runLogger.log.apply(this, arguments);
+    };
+    _runLogger.logs = [];
+
+    _runLogger.push = function(file, event, state, data){
+        _runLogger.logs.unshift({ file: file, event: event, state: state, data: data, time: new Date() });
+        if (_runLogger.logs.length > 1000) _runLogger.logs.length = 1000;
+        return this;
+    };
+    _runLogger.log = function(file, event, state, data){
+        if (event == 'error') console.error(file, event, state, data);
+        return this;
+    };
+
+    {{#if template}}
+        var TPL = (function(){
+            _runLogger('module', 'file', 'start', 'templates');
+            var template = Handlebars.template,
+            templates = Handlebars.templates = Handlebars.templates || {},
+            partials = Handlebars.partials = Handlebars.partials || {};
+
+            {{#each template.files}}{{> "{root}/parser/tpl/template"}}{{/each}}
+
+            _runLogger('module', 'file', 'end', 'templates');
+            return templates;
+        })();
+    {{/if}}
+
+    try {
+        {{#each submodule.files}}{{> "{root}/parser/tpl/submodule"}}{{/each}}
+    }catch(e){ _runLogger('module', 'error', 'startup', e); }
+
+
+
+    __m.length = 0; __m = null;
+    __i.length = 0; __i = null;
+    __g = null;
+
+    return this;
+}).call(
+    typeof module !== "undefined" && module.exports || {},
+    typeof window !== "undefined" && window || this
+);

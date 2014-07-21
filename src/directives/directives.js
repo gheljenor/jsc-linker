@@ -17,6 +17,4 @@
 //#load {root}/directives/external
 //#load {root}/directives/global
 
-//#load {root}/directives/refs
-
 //#load {root}/directives/test

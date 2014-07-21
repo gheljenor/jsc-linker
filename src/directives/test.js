@@ -1,3 +1,4 @@
+//#load {root}/directives/directives.list
 directives.test = {
     line: function(attr){ return attr; },
     block: function(data, controls, current){

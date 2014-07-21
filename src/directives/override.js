@@ -1,3 +1,4 @@
+//#load {root}/directives/directives.list
 var map = {};
 
 directives.override = {

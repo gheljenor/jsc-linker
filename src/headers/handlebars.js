@@ -1,1 +1,1 @@
-var handlebars = require("handlebars");
+var Handlebars = require("handlebars");

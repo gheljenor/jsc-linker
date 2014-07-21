@@ -1,0 +1,17 @@
+{{!#include {headers}/underscore}}
+{{!#load {root}/parser/tpl/helpers}}
+// ------- Template: {{{name}}}
+{{#template this type="check_imports"}}
+    (function(){
+        var imports = _.object([{{{template this type="import_inner"}}}], _.toArray(arguments));
+        var tpl = {{{template this type="precompile"}}};
+        var main = tpl.main;
+        tpl.main = function(depth0, helpers, partials, data){
+            return tmp.call(this, _.extend(depth0, imports), helpers, partials, data);
+        };
+
+        partials["{{{template this type="name"}}}"] = templates["{{{template this type="name"}}}"] = template(tpl);
+    }.apply(this, [ {{{template this type="import_external"}}} ]));
+{{else}}
+    partials["{{{template this type="name"}}}"] = templates["{{{template this type="name"}}}"] = template({{{template this type="precompile"}}});
+{{/template}}

@@ -1,3 +1,4 @@
+//#load {root}/directives/directives.list
 //#import {root}/fs/read-file#reader
 
 directives.require = {

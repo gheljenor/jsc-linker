@@ -1,3 +1,4 @@
+//#load {root}/directives/directives.list
 directives.template = {
     before: null,
     line: function(attr){ return attr; },

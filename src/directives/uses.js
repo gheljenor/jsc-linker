@@ -1,3 +1,4 @@
+//#load {root}/directives/directives.list
 directives.uses = {
     before: null,
     line: function(attr){
@@ -11,6 +12,12 @@ directives.uses = {
     block: function(data, controls){
         var files = data.map(function(a){ return a.file });
         controls.parseQueue(files);
+    },
+    import_in: function(module, line){
+        return line.inner;
+    },
+    import_out: function(module, line){
+        return '__m[ '+module.submodule.files[ line.file ].order+' ]';
     }
 };
 

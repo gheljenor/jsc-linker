@@ -1,0 +1,23 @@
+{{!#load {root}/parser/tpl/helpers}}
+// ------- Submodule: {{{name}}}
+__m[{{order}}] = (function ({{{submodule this type="import_inner"}}}) {
+    var __m, module;
+    var runLogger = _runLogger.bind(this, "{{{name}}}");
+    try {
+        runLogger("file", "start", "{{{name}}}");
+
+        {{{file}}}
+
+        runLogger("file", "end", "{{{name}}}");
+    } catch (e) {
+        runLogger("error", "init", e);
+    }
+
+    //- before export line
+    {{{submodule this type="before_export"}}}
+
+    return { {{{submodule this type="export"}}} };
+}).apply(this, [ {{{submodule this type="import_external"}}} ]);
+
+//- after line
+{{{submodule this type="after"}}}

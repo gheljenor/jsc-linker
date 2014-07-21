@@ -1,3 +1,4 @@
+//#load {root}/directives/directives.list
 var allow = ["export", "external", "require"];
 
 directives.module = {

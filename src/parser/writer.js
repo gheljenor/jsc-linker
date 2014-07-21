@@ -1,6 +1,8 @@
 //#include {headers}/handlebars
 
 //#import {root}/fs/write-file#writer
+//#import {root}/parser/tpl/helpers#setModule
+//#template {root}/parser/tpl/module.tpl
 
 //#export writeModule
 function writeModule(module){
@@ -30,6 +32,11 @@ function storeI18N(module){
 }
 
 function storeModule(module){
+    setModule(module);
+    var moduleFile = TPL["{root}/parser/tpl/module"](module);
+    writer(module.entry + ".module.js", moduleFile);
+    return;
+
     var modules = module.submodule.files;
     var entryIndex = modules[module.entry].order;
     var templates = buildTemplates(module);
@@ -134,7 +141,7 @@ function buildTemplates(module){
     if (!module.template) return "";
     var tplCfg = module.template.files, tpls = {}, tmp, tmp_1, template;
 
-    for (var k in tplCfg) tpls[k] = handlebars.precompile(tplCfg[k].file);
+    for (var k in tplCfg) tpls[k] = Handlebars.precompile(tplCfg[k].file);
 
     var wrapper = "var TPL = (function(){" +
         "_runLogger('module', 'file', 'start', 'templates');" +
